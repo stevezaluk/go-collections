@@ -1,6 +1,7 @@
 package test
 
 import (
+	"fmt"
 	"github.com/stevezaluk/go-collections/list"
 	"log"
 	"testing"
@@ -62,4 +63,21 @@ func TestListGet(t *testing.T) {
 	if node.Data != "fourthNode" {
 		log.Fatal("Data does not equal the expected value", "currentData", node.Data, "expectedData", "fourthNode")
 	}
+}
+func TestListAll(t *testing.T) {
+	_list := &list.LinkedList[string]{}
+	_list.Append("headNode")
+	_list.Append("secondNode")
+	_list.Append("thirdNode")
+	_list.Append("fourthNode")
+	_list.Append("fifthNode")
+
+	_list.Print()
+	all := _list.All()
+
+	fmt.Println(all)
+	if len(all) != 5 {
+		log.Fatal("Length of linked list content does not equal the expected value", "currentLength", len(all), "expectedLength", 5)
+	}
+
 }
