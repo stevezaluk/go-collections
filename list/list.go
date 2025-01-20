@@ -90,3 +90,19 @@ func (list *LinkedList[T]) GetData(index int) interface{} {
 
 	return nil
 }
+
+/*
+Get - Fetch a pointer to the node at the requested index. Returns nil if the node could not be found
+*/
+func (list *LinkedList[T]) Get(index int) *Node[T] {
+	nodeCopy := list.Head
+
+	for nodeCopy.Next != nil {
+		if nodeCopy.Index == index {
+			return nodeCopy
+		}
+		nodeCopy = nodeCopy.Next
+	}
+
+	return nil
+}
