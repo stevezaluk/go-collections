@@ -81,3 +81,16 @@ func TestListAll(t *testing.T) {
 	}
 
 }
+
+func TestListIndex(t *testing.T) {
+	_list := &list.LinkedList[string]{}
+	_list.Append("headNode")
+	_list.Append("secondNode")
+	_list.Append("thirdNode")
+	_list.Append("fourthNode")
+	_list.Append("fifthNode")
+
+	_list.Insert("insertedNode", 3)
+
+	_list.Print()
+}

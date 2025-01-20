@@ -123,3 +123,31 @@ func (list *LinkedList[T]) All() []T {
 
 	return ret
 }
+
+/*
+Insert - Insert a new node at the requested index with the specified data
+*/
+func (list *LinkedList[T]) Insert(data T, index int) {
+	nodeCopy := list.Head
+
+	var foundNode bool
+	for nodeCopy != nil {
+		if nodeCopy.Index == index {
+			newNode := &Node[T]{
+				Index: index,
+				Data:  data,
+			}
+			nodeCopy.Prev.Next = newNode
+			nodeCopy.Prev = newNode
+
+			newNode.Next = nodeCopy
+			foundNode = true
+		}
+
+		if foundNode == true {
+			nodeCopy.Index += 1
+		}
+
+		nodeCopy = nodeCopy.Next
+	}
+}
