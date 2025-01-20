@@ -142,6 +142,7 @@ func (list *LinkedList[T]) Insert(data T, index int) {
 
 			newNode.Next = nodeCopy
 			foundNode = true
+			list.Length += 1
 		}
 
 		if foundNode == true {
