@@ -49,3 +49,17 @@ func TestListGetData(t *testing.T) {
 		log.Fatal("Data does not equal the expected value", "currentData", data, "expectedData", "fourthNode")
 	}
 }
+
+func TestListGet(t *testing.T) {
+	_list := &list.LinkedList[string]{}
+	_list.Append("headNode")
+	_list.Append("secondNode")
+	_list.Append("thirdNode")
+	_list.Append("fourthNode")
+	_list.Append("fifthNode")
+
+	node := _list.Get(3)
+	if node.Data != "fourthNode" {
+		log.Fatal("Data does not equal the expected value", "currentData", node.Data, "expectedData", "fourthNode")
+	}
+}
