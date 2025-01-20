@@ -5,7 +5,7 @@ import "fmt"
 /*
 LinkedList - A representation of a linear Doubly Linked List
 */
-type LinkedList[T any] struct {
+type LinkedList[T interface{}] struct {
 	Head *Node[T]
 	Tail *Node[T]
 
@@ -15,7 +15,7 @@ type LinkedList[T any] struct {
 /*
 Node - A representation of a single node in the linked list
 */
-type Node[T any] struct {
+type Node[T interface{}] struct {
 	Index int
 	Next  *Node[T]
 	Prev  *Node[T]
@@ -37,4 +37,40 @@ func (list *LinkedList[T]) Print() {
 
 		nodeCopy = nodeCopy.Next
 	}
+}
+
+/*
+Append - Add a new node to the end of the linked list. If the head node is nil then it will simply add the head node to the
+linked list with the data passed in the parameter
+*/
+func (list *LinkedList[T]) Append(data T) {
+
+	// If the list head is nil then create a new node and set it as the head and tail
+	if list.Head == nil {
+		headNode := &Node[T]{
+			Index: 0, // head node will always have an index of 0
+			Next:  nil,
+			Prev:  nil,
+			Data:  data,
+		}
+		list.Head = headNode
+		list.Tail = headNode
+		list.Length = 1
+
+		return
+	}
+
+	newNode := &Node[T]{
+		Index: list.Tail.Index + 1,
+		Next:  nil,
+		Prev:  list.Tail,
+		Data:  data,
+	}
+
+	// this was failing previously as I wasn't setting the tail of our linked list to the new node.
+	// if we are appending here, then our new node will always be the new tail
+	list.Tail.Next = newNode
+	list.Tail = list.Tail.Next
+
+	list.Length += 1
 }
