@@ -74,3 +74,19 @@ func (list *LinkedList[T]) Append(data T) {
 
 	list.Length += 1
 }
+
+/*
+GetData - Fetch the data stored in the node at the requested index
+*/
+func (list *LinkedList[T]) GetData(index int) interface{} {
+	nodeCopy := list.Head
+
+	for nodeCopy.Next != nil {
+		if nodeCopy.Index == index {
+			return nodeCopy.Data
+		}
+		nodeCopy = nodeCopy.Next
+	}
+
+	return nil
+}
