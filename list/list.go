@@ -5,7 +5,7 @@ import "fmt"
 /*
 LinkedList - A representation of a linear Doubly Linked List
 */
-type LinkedList[T interface{}] struct {
+type LinkedList[T comparable] struct {
 	Head *Node[T]
 	Tail *Node[T]
 
@@ -15,7 +15,7 @@ type LinkedList[T interface{}] struct {
 /*
 Node - A representation of a single node in the linked list
 */
-type Node[T interface{}] struct {
+type Node[T comparable] struct {
 	Next *Node[T]
 	Prev *Node[T]
 
@@ -149,4 +149,25 @@ func (list *LinkedList[T]) Insert(data T, index int) {
 		nodeCopy = nodeCopy.Next
 		i += 1
 	}
+}
+
+/*
+Search - Iterate through each element of the list starting at the head until the data stored
+in the node matches the data passed in the 'data' parameter. Returns both the index and a pointer
+to the node
+*/
+func (list *LinkedList[T]) Search(data T) (int, *Node[T]) {
+	nodeCopy := list.Head
+
+	i := 0
+	for nodeCopy != nil {
+		if nodeCopy.Data == data {
+			return i, nodeCopy
+		}
+
+		nodeCopy = nodeCopy.Next
+		i += 1
+	}
+
+	return -1, nil
 }
