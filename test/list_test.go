@@ -35,3 +35,17 @@ func TestListAppend(t *testing.T) {
 		log.Fatal("Length of linked list is not expected", "currentLength", _list.Length, "expectedLength", 5)
 	}
 }
+
+func TestListGetData(t *testing.T) {
+	_list := &list.LinkedList[string]{}
+	_list.Append("headNode")
+	_list.Append("secondNode")
+	_list.Append("thirdNode")
+	_list.Append("fourthNode")
+	_list.Append("fifthNode")
+
+	data := _list.GetData(3)
+	if data != "fourthNode" {
+		log.Fatal("Data does not equal the expected value", "currentData", data, "expectedData", "fourthNode")
+	}
+}
