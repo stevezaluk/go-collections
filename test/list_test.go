@@ -9,8 +9,15 @@ import (
 TestListPrint - Test the Print() function of the linked list
 */
 func TestListPrint(t *testing.T) {
-	head := &list.Node[string]{Data: "headNode"}
-	head.Next = &list.Node[string]{Data: "secondNode"}
+	_list := &list.LinkedList[string]{
+		Head: &list.Node[string]{
+			Data: "headNode",
+		},
+	}
 
-	head.Print()
+	_list.Head.Next = &list.Node[string]{
+		Data: "secondNode",
+	}
+
+	_list.Print()
 }
