@@ -81,7 +81,7 @@ GetData - Fetch the data stored in the node at the requested index
 func (list *LinkedList[T]) GetData(index int) interface{} {
 	nodeCopy := list.Head
 
-	for nodeCopy.Next != nil {
+	for nodeCopy != nil {
 		if nodeCopy.Index == index {
 			return nodeCopy.Data
 		}
@@ -97,7 +97,7 @@ Get - Fetch a pointer to the node at the requested index. Returns nil if the nod
 func (list *LinkedList[T]) Get(index int) *Node[T] {
 	nodeCopy := list.Head
 
-	for nodeCopy.Next != nil {
+	for nodeCopy != nil {
 		if nodeCopy.Index == index {
 			return nodeCopy
 		}
@@ -105,4 +105,21 @@ func (list *LinkedList[T]) Get(index int) *Node[T] {
 	}
 
 	return nil
+}
+
+/*
+All - Iterate through each node of the linked list, store them in order of their index and return them in a slice
+*/
+func (list *LinkedList[T]) All() []T {
+	var ret []T
+
+	nodeCopy := list.Head
+
+	for nodeCopy != nil {
+		ret = append(ret, nodeCopy.Data)
+
+		nodeCopy = nodeCopy.Next
+	}
+
+	return ret
 }
