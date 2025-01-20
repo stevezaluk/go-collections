@@ -139,6 +139,7 @@ func (list *LinkedList[T]) Insert(data T, index int) {
 			newNode := &Node[T]{
 				Data: data,
 			}
+			newNode.Prev = nodeCopy.Prev
 			nodeCopy.Prev.Next = newNode
 			nodeCopy.Prev = newNode
 
