@@ -5,7 +5,7 @@ import "fmt"
 /*
 Node - A representation of a linear Doubly Linked List
 */
-type Node[T interface{}] struct {
+type Node[T any] struct {
 	Index int
 	Next  *Node[T]
 	Prev  *Node[T]
