@@ -1,6 +1,7 @@
 package stack
 
 import (
+	"fmt"
 	"slices"
 )
 
@@ -14,6 +15,21 @@ type Stack[T comparable] struct {
 
 	// Length - The amount of items or the 'size' of the stack
 	Length int
+}
+
+/*
+Print - Print the stack to STDOUT in order
+*/
+func (stack *Stack[T]) Print() {
+	i := stack.Length - 1
+
+	for i <= stack.Length {
+		if i < 0 {
+			break
+		}
+		fmt.Println(stack.Data[i])
+		i -= 1
+	}
 }
 
 /*
