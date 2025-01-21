@@ -164,6 +164,9 @@ func (list *LinkedList[T]) Remove(index int) {
 		if i == index {
 			nodeCopy.Next.Prev = nodeCopy.Prev
 			nodeCopy.Prev.Next = nodeCopy.Next
+
+			list.Length -= 1
+			break
 		}
 
 		nodeCopy = nodeCopy.Next
