@@ -5,7 +5,10 @@ Stack - Represents a LIFO stack data structure. We use an array internally to st
 with a O(1) time when randomly accessing elements
 */
 type Stack[T comparable] struct {
-	Data   []T
+	// Data - Represents the stack itself. The last element in this slice represents the top of the stack
+	Data []T
+
+	// Length - The amount of items or the 'size' of the stack
 	Length int
 }
 
