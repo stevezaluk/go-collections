@@ -1,5 +1,7 @@
 package stack
 
+import "slices"
+
 /*
 Stack - Represents a LIFO stack data structure. We use an array internally to store the data as this provides us
 with a O(1) time when randomly accessing elements
@@ -19,4 +21,9 @@ func (stack *Stack[T]) Push(data T) {
 	stack.Data = append(stack.Data, data)
 
 	stack.Length += 1
+}
+
+func (stack *Stack[T]) Pop() {
+	stack.Data = slices.Delete(stack.Data, stack.Length-1, stack.Length)
+	stack.Length -= 1
 }
