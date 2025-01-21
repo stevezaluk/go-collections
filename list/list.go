@@ -159,12 +159,21 @@ func (list *LinkedList[T]) All() []T {
 }
 
 /*
-Insert - Insert a new node at the requested index with the specified data.
-
-! This needs to be updated to support this operation at 0 index (track head here along with tail)
+Insert - Insert a new node at the requested index with the specified data. Calls to 0 are effectively
+a Prepend operation and calls to -1 are an Append operation
 */
 func (list *LinkedList[T]) Insert(data T, index int) {
 	nodeCopy := list.Head
+
+	if index == 0 {
+		list.Prepend(data)
+		return
+	}
+
+	if index == -1 {
+		list.Append(data)
+		return
+	}
 
 	i := 0
 	for nodeCopy != nil {
