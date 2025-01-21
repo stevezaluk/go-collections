@@ -39,6 +39,24 @@ func (list *LinkedList[T]) Print() {
 }
 
 /*
+init - Initialize the linked list by creating a new node and setting it as both the head and tail. Calls to Append, Prepend, and
+Insert (with an index of 0) do this for you automatically so it would be arbitrary to call this function after declaring your list,
+hence why it is not exported
+*/
+func (list *LinkedList[T]) init(data T) {
+	head := &Node[T]{
+		Next: nil,
+		Prev: nil,
+		Data: data,
+	}
+
+	list.Head = head
+	list.Tail = head
+
+	list.Length = 1
+}
+
+/*
 Append - Add a new node to the end of the linked list. If the head node is nil then it will simply add the head node to the
 linked list with the data passed in the parameter
 */
@@ -46,15 +64,7 @@ func (list *LinkedList[T]) Append(data T) {
 
 	// If the list head is nil then create a new node and set it as the head and tail
 	if list.Head == nil {
-		headNode := &Node[T]{
-			Next: nil,
-			Prev: nil,
-			Data: data,
-		}
-		list.Head = headNode
-		list.Tail = headNode
-		list.Length = 1
-
+		list.init(data)
 		return
 	}
 
@@ -128,7 +138,9 @@ func (list *LinkedList[T]) All() []T {
 }
 
 /*
-Insert - Insert a new node at the requested index with the specified data
+Insert - Insert a new node at the requested index with the specified data.
+
+! This needs to be updated to support this operation at 0 index
 */
 func (list *LinkedList[T]) Insert(data T, index int) {
 	nodeCopy := list.Head
