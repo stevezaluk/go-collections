@@ -83,6 +83,27 @@ func (list *LinkedList[T]) Append(data T) {
 }
 
 /*
+Prepend - Prepend the list with a new node containing the data requested with the 'data' parameter. Effectively
+replaces the head of the linked list
+*/
+func (list *LinkedList[T]) Prepend(data T) {
+	if list.Head == nil {
+		list.init(data)
+		return
+	}
+
+	newNode := &Node[T]{
+		Prev: nil,
+		Data: data,
+	}
+
+	newNode.Next = list.Head
+	list.Head = newNode
+
+	list.Length += 1
+}
+
+/*
 GetData - Fetch the data stored in the node at the requested index
 */
 func (list *LinkedList[T]) GetData(index int) interface{} {
@@ -140,7 +161,7 @@ func (list *LinkedList[T]) All() []T {
 /*
 Insert - Insert a new node at the requested index with the specified data.
 
-! This needs to be updated to support this operation at 0 index
+! This needs to be updated to support this operation at 0 index (track head here along with tail)
 */
 func (list *LinkedList[T]) Insert(data T, index int) {
 	nodeCopy := list.Head
