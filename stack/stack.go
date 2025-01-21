@@ -13,6 +13,9 @@ type Stack[T comparable] struct {
 	// Data - Represents the stack itself. The last element in this slice represents the top of the stack
 	Data []T
 
+	// Top - The item stored at the top of the stack
+	Top T
+
 	// Length - The amount of items or the 'size' of the stack
 	Length int
 }
@@ -33,10 +36,18 @@ func (stack *Stack[T]) Print() {
 }
 
 /*
+Peek - Return the data stored on the top of the stack
+*/
+func (stack *Stack[T]) Peek() T {
+	return stack.Data[stack.Length-1]
+}
+
+/*
 Push - Push a new element to the top of the stack
 */
 func (stack *Stack[T]) Push(data T) {
 	stack.Data = append(stack.Data, data)
+	stack.Top = data
 
 	stack.Length += 1
 }
@@ -46,12 +57,8 @@ Pop - Remove the last added item from the stack
 */
 func (stack *Stack[T]) Pop() {
 	stack.Data = slices.Delete(stack.Data, stack.Length-1, stack.Length)
-	stack.Length -= 1
-}
 
-/*
-Peek - Return the data stored on the top of the stack
-*/
-func (stack *Stack[T]) Peek() T {
-	return stack.Data[stack.Length-1]
+	stack.Length -= 1
+
+	stack.Top = stack.Peek()
 }
