@@ -23,6 +23,9 @@ func (stack *Stack[T]) Push(data T) {
 	stack.Length += 1
 }
 
+/*
+Pop - Remove the last added item from the stack
+*/
 func (stack *Stack[T]) Pop() {
 	stack.Data = slices.Delete(stack.Data, stack.Length-1, stack.Length)
 	stack.Length -= 1
