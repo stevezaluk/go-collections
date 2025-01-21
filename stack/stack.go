@@ -36,6 +36,13 @@ func (stack *Stack[T]) Print() {
 }
 
 /*
+All - Return the contents of the stack as a slice. The right most item represents the top item
+*/
+func (stack *Stack[T]) All() []T {
+	return stack.Data
+}
+
+/*
 Peek - Return the data stored on the top of the stack
 */
 func (stack *Stack[T]) Peek() T {
