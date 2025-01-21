@@ -1,6 +1,8 @@
 package stack
 
-import "slices"
+import (
+	"slices"
+)
 
 /*
 Stack - Represents a LIFO stack data structure. We use an array internally to store the data as this provides us
@@ -29,4 +31,11 @@ Pop - Remove the last added item from the stack
 func (stack *Stack[T]) Pop() {
 	stack.Data = slices.Delete(stack.Data, stack.Length-1, stack.Length)
 	stack.Length -= 1
+}
+
+/*
+Peek - Return the data stored on the top of the stack
+*/
+func (stack *Stack[T]) Peek() T {
+	return stack.Data[stack.Length-1]
 }
