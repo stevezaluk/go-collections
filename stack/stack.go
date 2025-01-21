@@ -69,3 +69,14 @@ func (stack *Stack[T]) Pop() {
 
 	stack.Top = stack.Peek()
 }
+
+/*
+Duplicate - Pops the first item and then pushes it twice
+*/
+func (stack *Stack[T]) Duplicate() {
+	former := stack.Peek()
+
+	stack.Pop()
+	stack.Push(former)
+	stack.Push(former)
+}
