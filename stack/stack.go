@@ -80,3 +80,20 @@ func (stack *Stack[T]) Duplicate() {
 	stack.Push(former)
 	stack.Push(former)
 }
+
+/*
+Swap - Swap the top and second item on the stack
+*/
+func (stack *Stack[T]) Swap() {
+	if stack.Length == 0 || stack.Length == 1 {
+		return
+	}
+
+	formerTop := stack.Peek()
+	formerSecond := stack.data[stack.Length-2]
+
+	stack.data[stack.Length-1] = formerSecond
+	stack.data[stack.Length-2] = formerTop
+
+	stack.Top = stack.data[stack.Length-1]
+}
