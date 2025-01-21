@@ -153,6 +153,25 @@ func (list *LinkedList[T]) Insert(data T, index int) {
 }
 
 /*
+Remove - Remove a node from the linked list. If the node could not be found at the respective index then
+the linked list will not be modified
+*/
+func (list *LinkedList[T]) Remove(index int) {
+	nodeCopy := list.Head
+
+	i := 0
+	for nodeCopy != nil {
+		if i == index {
+			nodeCopy.Next.Prev = nodeCopy.Prev
+			nodeCopy.Prev.Next = nodeCopy.Next
+		}
+
+		nodeCopy = nodeCopy.Next
+		i += 1
+	}
+}
+
+/*
 Search - Iterate through each element of the list starting at the head until the data stored
 in the node matches the data passed in the 'data' parameter. Returns both the index and a pointer
 to the node
