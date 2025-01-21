@@ -145,6 +145,7 @@ func (list *LinkedList[T]) Insert(data T, index int) {
 
 			newNode.Next = nodeCopy
 			list.Length += 1
+			break
 		}
 
 		nodeCopy = nodeCopy.Next
