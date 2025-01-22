@@ -5,6 +5,11 @@ import (
 	"slices"
 )
 
+const (
+	RotateRight = 0
+	RotateLeft  = 1
+)
+
 /*
 Stack - Represents a LIFO stack data structure. We use an array internally to store the data as this provides us
 with a O(1) time when randomly accessing elements
@@ -71,7 +76,7 @@ func (stack *Stack[T]) Pop() {
 }
 
 /*
-Duplicate - Pops the first item and then pushes it twice
+Duplicate - Pops the first item and then pushes it twice. Update this to properly track length
 */
 func (stack *Stack[T]) Duplicate() {
 	former := stack.Peek()
@@ -79,6 +84,8 @@ func (stack *Stack[T]) Duplicate() {
 	stack.Pop()
 	stack.Push(former)
 	stack.Push(former)
+
+	stack.Length += 1
 }
 
 /*
