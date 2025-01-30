@@ -3,6 +3,22 @@ package list
 import "fmt"
 
 /*
+ILinkedList - An interface describing all the functions that a linked list
+implements. Implementation is implicit in go, so no need to explicitly declare
+this
+*/
+type ILinkedList[T comparable] interface {
+	Append(T)
+	Prepend(T)
+	GetData(int) interface{}
+	Get(int) *Node[T]
+	All() []T
+	Insert(T, int)
+	Remove(int)
+	Search(T) (int, *Node[T])
+}
+
+/*
 LinkedList - A representation of a linear Doubly Linked List
 */
 type LinkedList[T comparable] struct {
