@@ -11,6 +11,18 @@ const (
 )
 
 /*
+IStack - Interface describing the functions that all stacks implement
+*/
+type IStack[T comparable] interface {
+	All() []T
+	Peek() T
+	Push(T)
+	Pop()
+	Duplicate()
+	Swap()
+}
+
+/*
 Stack - Represents a LIFO stack data structure. We use an array internally to store the data as this provides us
 with a O(1) time when randomly accessing elements
 */
