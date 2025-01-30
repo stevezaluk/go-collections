@@ -23,6 +23,16 @@ type Node[T comparable] struct {
 }
 
 /*
+NewLinkedList - Constructor for the linked list structure. This function
+returns a Pointer to an empty LinkedList. This does not initialize the linked
+list with a node, however any calls to Insert, Append, or Prepend will initialize
+this for you
+*/
+func NewLinkedList[T comparable]() *LinkedList[T] {
+	return &LinkedList[T]{Length: 0}
+}
+
+/*
 Print - Iterate through each element of the linked list and print the data that it is storing
 
 Time Complexity: o(N) where N is the length of the list
