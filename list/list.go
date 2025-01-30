@@ -39,12 +39,12 @@ Time Complexity: o(N) where N is the length of the list
 Reason: Each node must be iterated over in order to print the data stored in the node.
 */
 func (list *LinkedList[T]) Print() {
-	nodeCopy := list.Head
+	curr := list.Head
 
-	for nodeCopy != nil {
-		fmt.Println(nodeCopy.Data)
+	for curr != nil {
+		fmt.Println(curr.Data)
 
-		nodeCopy = nodeCopy.Next
+		curr = curr.Next
 	}
 }
 
@@ -117,15 +117,15 @@ func (list *LinkedList[T]) Prepend(data T) {
 GetData - Fetch the data stored in the node at the requested index
 */
 func (list *LinkedList[T]) GetData(index int) interface{} {
-	nodeCopy := list.Head
+	curr := list.Head
 
 	i := 0
-	for nodeCopy != nil {
+	for curr != nil {
 		if i == index {
-			return nodeCopy.Data
+			return curr.Data
 		}
 
-		nodeCopy = nodeCopy.Next
+		curr = curr.Next
 		i += 1
 	}
 
@@ -136,15 +136,15 @@ func (list *LinkedList[T]) GetData(index int) interface{} {
 Get - Fetch a pointer to the node at the requested index. Returns nil if the node could not be found
 */
 func (list *LinkedList[T]) Get(index int) *Node[T] {
-	nodeCopy := list.Head
+	curr := list.Head
 
 	i := 0
-	for nodeCopy != nil {
+	for curr != nil {
 		if i == index {
-			return nodeCopy
+			return curr
 		}
 
-		nodeCopy = nodeCopy.Next
+		curr = curr.Next
 		i += 1
 	}
 
@@ -157,12 +157,12 @@ All - Iterate through each node of the linked list, store them in order of their
 func (list *LinkedList[T]) All() []T {
 	var ret []T
 
-	nodeCopy := list.Head
+	curr := list.Head
 
-	for nodeCopy != nil {
-		ret = append(ret, nodeCopy.Data)
+	for curr != nil {
+		ret = append(ret, curr.Data)
 
-		nodeCopy = nodeCopy.Next
+		curr = curr.Next
 	}
 
 	return ret
@@ -173,7 +173,7 @@ Insert - Insert a new node at the requested index with the specified data. Calls
 a Prepend operation and calls to -1 are an Append operation
 */
 func (list *LinkedList[T]) Insert(data T, index int) {
-	nodeCopy := list.Head
+	curr := list.Head
 
 	if index == 0 {
 		list.Prepend(data)
@@ -186,21 +186,21 @@ func (list *LinkedList[T]) Insert(data T, index int) {
 	}
 
 	i := 0
-	for nodeCopy != nil {
+	for curr != nil {
 		if i == index {
 			newNode := &Node[T]{
 				Data: data,
 			}
-			newNode.Prev = nodeCopy.Prev
-			nodeCopy.Prev.Next = newNode
-			nodeCopy.Prev = newNode
+			newNode.Prev = curr.Prev
+			curr.Prev.Next = newNode
+			curr.Prev = newNode
 
-			newNode.Next = nodeCopy
+			newNode.Next = curr
 			list.Length += 1
 			break
 		}
 
-		nodeCopy = nodeCopy.Next
+		curr = curr.Next
 		i += 1
 	}
 }
@@ -210,19 +210,19 @@ Remove - Remove a node from the linked list. If the node could not be found at t
 the linked list will not be modified
 */
 func (list *LinkedList[T]) Remove(index int) {
-	nodeCopy := list.Head
+	curr := list.Head
 
 	i := 0
-	for nodeCopy != nil {
+	for curr != nil {
 		if i == index {
-			nodeCopy.Next.Prev = nodeCopy.Prev
-			nodeCopy.Prev.Next = nodeCopy.Next
+			curr.Next.Prev = curr.Prev
+			curr.Prev.Next = curr.Next
 
 			list.Length -= 1
 			break
 		}
 
-		nodeCopy = nodeCopy.Next
+		curr = curr.Next
 		i += 1
 	}
 }
@@ -233,15 +233,15 @@ in the node matches the data passed in the 'data' parameter. Returns both the in
 to the node
 */
 func (list *LinkedList[T]) Search(data T) (int, *Node[T]) {
-	nodeCopy := list.Head
+	curr := list.Head
 
 	i := 0
-	for nodeCopy != nil {
-		if nodeCopy.Data == data {
-			return i, nodeCopy
+	for curr != nil {
+		if curr.Data == data {
+			return i, curr
 		}
 
-		nodeCopy = nodeCopy.Next
+		curr = curr.Next
 		i += 1
 	}
 
