@@ -162,44 +162,17 @@ func (list *LinkedList[T]) Prepend(data T) {
 }
 
 /*
-GetData - Fetch the data stored in the node at the requested index
-*/
-func (list *LinkedList[T]) GetData(index int) interface{} {
-	if index == 0 {
-		return list.Head.Data
-	}
-
-	if index == -1 {
-		return list.Tail.Data
-	}
-
-	curr := list.Head
-
-	i := 0
-	for curr != nil {
-		if i == index {
-			return curr.Data
-		}
-
-		curr = curr.Next
-		i += 1
-	}
-
-	return nil
-}
-
-/*
 Get - Fetch a pointer to the node at the requested index. Returns nil if the node could not be found.
 If 0 is passed to the index, then the head of the linked list is returned. If -1 is passed to the index,
 then the tail of the linked list is returned.
 */
 func (list *LinkedList[T]) Get(index int) *Node[T] {
 	if index == 0 {
-		return list.Head
+		return list.GetHead()
 	}
 
 	if index == -1 {
-		return list.Tail
+		return list.GetTail()
 	}
 
 	curr := list.Head
@@ -212,6 +185,18 @@ func (list *LinkedList[T]) Get(index int) *Node[T] {
 
 		curr = curr.Next
 		i += 1
+	}
+
+	return nil
+}
+
+/*
+GetData - Fetch the data stored in the node at the requested index
+*/
+func (list *LinkedList[T]) GetData(index int) interface{} {
+	node := list.Get(index)
+	if node != nil {
+		return node.Data
 	}
 
 	return nil
