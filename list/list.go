@@ -149,9 +149,19 @@ func (list *LinkedList[T]) GetData(index int) interface{} {
 }
 
 /*
-Get - Fetch a pointer to the node at the requested index. Returns nil if the node could not be found
+Get - Fetch a pointer to the node at the requested index. Returns nil if the node could not be found.
+If 0 is passed to the index, then the head of the linked list is returned. If -1 is passed to the index,
+then the tail of the linked list is returned.
 */
 func (list *LinkedList[T]) Get(index int) *Node[T] {
+	if index == 0 {
+		return list.Head
+	}
+
+	if index == -1 {
+		return list.Tail
+	}
+
 	curr := list.Head
 
 	i := 0
