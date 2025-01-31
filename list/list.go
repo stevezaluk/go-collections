@@ -133,6 +133,14 @@ func (list *LinkedList[T]) Prepend(data T) {
 GetData - Fetch the data stored in the node at the requested index
 */
 func (list *LinkedList[T]) GetData(index int) interface{} {
+	if index == 0 {
+		return list.Head.Data
+	}
+
+	if index == -1 {
+		return list.Tail.Data
+	}
+
 	curr := list.Head
 
 	i := 0
