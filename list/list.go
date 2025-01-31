@@ -167,6 +167,10 @@ If 0 is passed to the index, then the head of the linked list is returned. If -1
 then the tail of the linked list is returned.
 */
 func (list *LinkedList[T]) Get(index int) *Node[T] {
+	if index > (list.Length - 1) {
+		return nil
+	}
+
 	if index == 0 {
 		return list.GetHead()
 	}
@@ -224,7 +228,9 @@ Insert - Insert a new node at the requested index with the specified data. Calls
 a Prepend operation and calls to -1 are an Append operation
 */
 func (list *LinkedList[T]) Insert(data T, index int) {
-	curr := list.Head
+	if index > (list.Length - 1) {
+		return
+	}
 
 	if index == 0 {
 		list.Prepend(data)
@@ -235,6 +241,8 @@ func (list *LinkedList[T]) Insert(data T, index int) {
 		list.Append(data)
 		return
 	}
+
+	curr := list.Head
 
 	i := 0
 	for curr != nil {
@@ -261,6 +269,10 @@ Remove - Remove a node from the linked list. If the node could not be found at t
 the linked list will not be modified
 */
 func (list *LinkedList[T]) Remove(index int) {
+	if index > (list.Length - 1) {
+		return
+	}
+
 	if index == 0 {
 		list.RemoveHead()
 		return
