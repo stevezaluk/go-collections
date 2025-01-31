@@ -261,6 +261,16 @@ Remove - Remove a node from the linked list. If the node could not be found at t
 the linked list will not be modified
 */
 func (list *LinkedList[T]) Remove(index int) {
+	if index == 0 {
+		list.RemoveHead()
+		return
+	}
+
+	if index == -1 {
+		list.RemoveTail()
+		return
+	}
+
 	curr := list.Head
 
 	i := 0
