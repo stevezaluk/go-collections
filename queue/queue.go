@@ -28,3 +28,46 @@ returns a pointer to the queue
 func NewQueue[T comparable]() *Queue[T] {
 	return &Queue[T]{data: list.NewLinkedList[T]()}
 }
+
+/*
+Enqueue - Place data at the end of the queue
+*/
+func (queue *Queue[T]) Enqueue(data T) {
+	queue.data.Append(data)
+}
+
+/*
+Dequeue - Remove an object from the front of the queue and return it
+*/
+func (queue *Queue[T]) Dequeue() T {
+	ret := queue.data.GetHead().Data
+	queue.data.RemoveHead()
+
+	return ret
+}
+
+/*
+Front - Return the data stored at the front of the queue without removing it
+*/
+func (queue *Queue[T]) Front() T {
+	return queue.data.GetHead().Data
+}
+
+/*
+Size - Get the amount of items stored in the queue
+*/
+func (queue *Queue[T]) Size() int {
+	return queue.data.Length
+}
+
+/*
+IsEmpty - Returns a boolean value if the list is empty. If the length of the underlying
+linked list is 0, then this returns true. Otherwise, it returns false
+*/
+func (queue *Queue[T]) IsEmpty() bool {
+	if queue.Size() == 0 {
+		return true
+	}
+
+	return false
+}
