@@ -83,12 +83,26 @@ func (list *LinkedList[T]) init(data T) {
 }
 
 /*
+GetHead - Return a pointer to the node placed at the head of the linked list
+*/
+func (list *LinkedList[T]) GetHead() *Node[T] {
+	return list.Head
+}
+
+/*
 RemoveHead - Removes the head of the linked list, and sets the head to the node at the 1st index
 */
 func (list *LinkedList[T]) RemoveHead() {
 	newHead := list.Head.Next
 	newHead.Prev = nil
 	list.Head = newHead
+}
+
+/*
+GetTail - Return a pointer to the node placed at the tail of the linked list
+*/
+func (list *LinkedList[T]) GetTail() *Node[T] {
+	return list.Tail
 }
 
 /*
