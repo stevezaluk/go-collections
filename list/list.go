@@ -96,6 +96,7 @@ func (list *LinkedList[T]) RemoveHead() {
 	newHead := list.Head.Next
 	newHead.Prev = nil
 	list.Head = newHead
+	list.Length -= 1
 }
 
 /*
@@ -112,6 +113,7 @@ func (list *LinkedList[T]) RemoveTail() {
 	newTail := list.Tail.Prev
 	newTail.Next = nil
 	list.Tail = newTail
+	list.Length -= 1
 }
 
 /*
