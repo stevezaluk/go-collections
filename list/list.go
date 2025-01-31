@@ -7,7 +7,7 @@ ILinkedList - An interface describing all the functions that a linked list
 implements. Implementation is implicit in go, so no need to explicitly declare
 this
 */
-type ILinkedList[T comparable] interface {
+type ILinkedList[T any] interface {
 	Append(T)
 	Prepend(T)
 	GetData(int) interface{}
@@ -15,13 +15,12 @@ type ILinkedList[T comparable] interface {
 	All() []T
 	Insert(T, int)
 	Remove(int)
-	Search(T) (int, *Node[T])
 }
 
 /*
 LinkedList - A representation of a linear Doubly Linked List
 */
-type LinkedList[T comparable] struct {
+type LinkedList[T any] struct {
 	Head *Node[T]
 	Tail *Node[T]
 
@@ -31,7 +30,7 @@ type LinkedList[T comparable] struct {
 /*
 Node - A representation of a single node in the linked list
 */
-type Node[T comparable] struct {
+type Node[T any] struct {
 	Next *Node[T]
 	Prev *Node[T]
 
@@ -44,7 +43,7 @@ returns a Pointer to an empty LinkedList. This does not initialize the linked
 list with a node, however any calls to Insert, Append, or Prepend will initialize
 this for you
 */
-func NewLinkedList[T comparable]() *LinkedList[T] {
+func NewLinkedList[T any]() *LinkedList[T] {
 	return &LinkedList[T]{Length: 0}
 }
 
@@ -300,25 +299,4 @@ func (list *LinkedList[T]) Remove(index int) {
 		curr = curr.Next
 		i += 1
 	}
-}
-
-/*
-Search - Iterate through each element of the list starting at the head until the data stored
-in the node matches the data passed in the 'data' parameter. Returns both the index and a pointer
-to the node
-*/
-func (list *LinkedList[T]) Search(data T) (int, *Node[T]) {
-	curr := list.Head
-
-	i := 0
-	for curr != nil {
-		if curr.Data == data {
-			return i, curr
-		}
-
-		curr = curr.Next
-		i += 1
-	}
-
-	return -1, nil
 }
