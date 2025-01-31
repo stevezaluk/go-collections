@@ -83,6 +83,24 @@ func (list *LinkedList[T]) init(data T) {
 }
 
 /*
+RemoveHead - Removes the head of the linked list, and sets the head to the node at the 1st index
+*/
+func (list *LinkedList[T]) RemoveHead() {
+	newHead := list.Head.Next
+	newHead.Prev = nil
+	list.Head = newHead
+}
+
+/*
+RemoveTail - Removes the tail of the linked list, and sets the tail to the node at the index before the tail
+*/
+func (list *LinkedList[T]) RemoveTail() {
+	newTail := list.Tail.Prev
+	newTail.Next = nil
+	list.Tail = newTail
+}
+
+/*
 Append - Add a new node to the end of the linked list. If the head node is nil then it will simply add the head node to the
 linked list with the data passed in the parameter
 */
