@@ -27,8 +27,8 @@ logic.
 */
 type HashMap[T interface{}] struct {
 	data     []*KeyPair[T]
-	length   uint64
-	capacity uint64
+	length   int
+	capacity int
 }
 
 /*
@@ -44,4 +44,16 @@ index - Return the index of a given key as an integer
 */
 func (hashMap *HashMap[T]) index(key string) int {
 	return int(fnv.NewFNV1AHash(prime.BitSize64, []byte(key)) % 6)
+}
+
+/*
+reallocate - Extend the underlying array by the size passed in the parameter.
+The result will be n + size, where n is the current length of the array
+*/
+func (hashMap *HashMap[T]) reallocate(size int) {
+	var newItem T
+
+	for i := 0; i < size; i++ {
+		hashMap.data = append(hashMap.data, NewKeyPair("empty", newItem))
+	}
 }
