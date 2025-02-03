@@ -41,6 +41,20 @@ func NewHashMap[T interface{}]() *HashMap[T] {
 }
 
 /*
+Capacity - Returns the size of the underlying array, including both real elements and place holder elements
+*/
+func (hashMap *HashMap[T]) Capacity() int {
+	return hashMap.capacity
+}
+
+/*
+Length - Returns the number of real elements stored in the array
+*/
+func (hashMap *HashMap[T]) Length() int {
+	return hashMap.length
+}
+
+/*
 Index - Return the index of a given key as an integer
 */
 func (hashMap *HashMap[T]) index(key string) int {
