@@ -43,7 +43,7 @@ func NewHashMap[T interface{}]() *HashMap[T] {
 /*
 Index - Return the index of a given key as an integer
 */
-func (hashMap *HashMap[T]) Index(key string) int {
+func (hashMap *HashMap[T]) index(key string) int {
 	return int(fnv.NewFNV1AHash(prime.BitSize64, []byte(key)) % 6)
 }
 
@@ -65,7 +65,7 @@ func (hashMap *HashMap[T]) reallocate(size int) {
 Set - Insert a new value into the hash map and
 */
 func (hashMap *HashMap[T]) Set(key string, value T) {
-	index := hashMap.Index(key)
+	index := hashMap.index(key)
 
 	// if our index is greater than our current greatest possible index,
 	// then re-allocate space for it in the underlying array
@@ -90,7 +90,7 @@ Get - Fetch an item stored in the hash map
 func (hashMap *HashMap[T]) Get(key string) (T, error) {
 	var ret T
 
-	index := hashMap.Index(key)
+	index := hashMap.index(key)
 
 	if index > (hashMap.capacity - 1) {
 		return ret, errors.New("hashmap: Failed to find value with the specified key (index is greater then the greatest possible index)")
