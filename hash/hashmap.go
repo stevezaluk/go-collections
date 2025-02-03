@@ -1,6 +1,7 @@
 package hash
 
 import (
+	"errors"
 	"github.com/stevezaluk/fnv-hash/fnv"
 	"github.com/stevezaluk/fnv-hash/prime"
 )
@@ -40,9 +41,9 @@ func NewHashMap[T interface{}]() *HashMap[T] {
 }
 
 /*
-index - Return the index of a given key as an integer
+Index - Return the index of a given key as an integer
 */
-func (hashMap *HashMap[T]) index(key string) int {
+func (hashMap *HashMap[T]) Index(key string) int {
 	return int(fnv.NewFNV1AHash(prime.BitSize64, []byte(key)) % 6)
 }
 
@@ -56,4 +57,49 @@ func (hashMap *HashMap[T]) reallocate(size int) {
 	for i := 0; i < size; i++ {
 		hashMap.data = append(hashMap.data, NewKeyPair("empty", newItem))
 	}
+
+	hashMap.capacity += size
+}
+
+/*
+Set - Insert a new value into the hash map and
+*/
+func (hashMap *HashMap[T]) Set(key string, value T) {
+	index := hashMap.Index(key)
+
+	// if our index is greater than our current greatest possible index,
+	// then re-allocate space for it in the underlying array
+	if index > (hashMap.capacity - 1) {
+		hashMap.reallocate(index - (hashMap.capacity - 1))
+	}
+
+	// array has the space for our new element
+	keyPair := hashMap.data[index]
+
+	if keyPair.Key != "empty" && keyPair.Key != key {
+		// hash collision has happened. Deal with it accordingly
+	}
+
+	hashMap.data[index] = NewKeyPair(key, value)
+	hashMap.length += 1
+}
+
+/*
+Get - Fetch an item stored in the hash map
+*/
+func (hashMap *HashMap[T]) Get(key string) (T, error) {
+	var ret T
+
+	index := hashMap.Index(key)
+
+	if index > (hashMap.capacity - 1) {
+		return ret, errors.New("hashmap: Failed to find value with the specified key (index is greater then the greatest possible index)")
+	}
+
+	keyPair := hashMap.data[index]
+	if keyPair.Key == "empty" {
+		return ret, errors.New("hashmap: Failed to find value with the specified key (key was not found)")
+	}
+
+	return keyPair.Value, nil
 }
