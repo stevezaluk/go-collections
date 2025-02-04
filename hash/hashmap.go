@@ -25,6 +25,8 @@ func NewKeyPair[T interface{}](key string, value T) *KeyPair[T] {
 /*
 HashMap - Represents the HashMap as a whole and encapsulates it's all of its
 logic.
+
+WARNING: THIS CANNOT CURRENTLY HANDLE HASH COLLISIONS
 */
 type HashMap[T interface{}] struct {
 	data     []*KeyPair[T]
@@ -41,7 +43,7 @@ func NewHashMap[T interface{}]() *HashMap[T] {
 }
 
 /*
-Capacity - Returns the size of the underlying array, including both real elements and place holder elements
+Capacity - Returns the size of the underlying array, including both real elements and placeholder elements
 */
 func (hashMap *HashMap[T]) Capacity() int {
 	return hashMap.capacity
@@ -58,7 +60,7 @@ func (hashMap *HashMap[T]) Length() int {
 Index - Return the index of a given key as an integer
 */
 func (hashMap *HashMap[T]) index(key string) int {
-	return int(fnv.NewFNV1AHash(prime.BitSize64, []byte(key)) % 6)
+	return int(fnv.NewFNV1AHash(prime.BitSize64, []byte(key)) % 11)
 }
 
 /*
